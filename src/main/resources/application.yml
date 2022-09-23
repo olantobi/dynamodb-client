@@ -1,0 +1,13 @@
+
+cloud:
+  aws:
+    region:
+      static: us-east-1
+      auto: false
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+
+aws:
+  ddb_table_name: ${DDB_TABLE_NAME}
+
