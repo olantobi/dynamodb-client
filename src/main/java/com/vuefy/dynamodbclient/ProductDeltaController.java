@@ -1,5 +1,6 @@
 package com.vuefy.dynamodbclient;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class ProductDeltaController {
   @PostMapping("/api/{site_key}/upload/feed")
   public ResponseEntity<?> saveProductDelta(@PathVariable("site_key") String siteKey,
       @RequestBody ProductDeltaDto2 productDeltaDto) {
-    dbConnector.createItems("update", new HashSet<>(productDeltaDto.getUniqueId()));
+    dbConnector.createItems("update", Collections.singleton(productDeltaDto.getUniqueId()));
 
     return ResponseEntity.ok(new UnbxdResponse("200", "success", UUID.randomUUID().toString()));
   }

@@ -2,7 +2,7 @@
 cloud:
   aws:
     region:
-      static: us-east-1
+      static: ${AWS_REGION:us-east-1}
       auto: false
     credentials:
       access-key: ${AWS_ACCESS_KEY_ID}
