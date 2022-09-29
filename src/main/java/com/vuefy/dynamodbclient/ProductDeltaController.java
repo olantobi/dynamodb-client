@@ -1,6 +1,5 @@
 package com.vuefy.dynamodbclient;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +26,25 @@ public class ProductDeltaController {
   @PostMapping("/api/{site_key}/upload/feed")
   public ResponseEntity<?> saveProductDelta(@PathVariable("site_key") String siteKey,
       @RequestBody ProductDeltaDto2 productDeltaDto) {
-    dbConnector.createItems("update", Collections.singleton(productDeltaDto.getUniqueId()));
-
+//    dbConnector.createItems("update", Collections.singleton(productDeltaDto.getUniqueId()));
+//
+//    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+//
+//    executorService.schedule(Classname::someTask, delayInSeconds, TimeUnit.SECONDS);
+    dbConnector.addProductId(productDeltaDto.getUniqueId());
     return ResponseEntity.ok(new UnbxdResponse("200", "success", UUID.randomUUID().toString()));
   }
 
   @GetMapping("/get-items")
   public ResponseEntity<?> getProducts() {
     long itemsWithinInterval = dbConnector.getItemsWithinInterval(5);
+
+    return ResponseEntity.ok(itemsWithinInterval);
+  }
+
+  @GetMapping("/get-deleted")
+  public ResponseEntity<?> getDeletedProducts() {
+    long itemsWithinInterval = dbConnector.getDeletedItems();
 
     return ResponseEntity.ok(itemsWithinInterval);
   }
